@@ -13,12 +13,12 @@ class MyListAdapter (private val myData: ArrayList<FirebaseDataClass>) :
     RecyclerView.Adapter<MyListAdapter.MyViewHolder>(){
 
     class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val textView: TextView
+        val stringTextView: TextView
 //        val deleteButton: Button
 //        val editButton: Button
 
         init {
-            textView = view.findViewById(R.id.title)
+            stringTextView = view.findViewById(R.id.string_text_view)
 //            deleteButton = view.findViewById(R.id.delete_button)
 //            editButton = view.findViewById(R.id.edit_button)
         }
@@ -32,7 +32,7 @@ class MyListAdapter (private val myData: ArrayList<FirebaseDataClass>) :
     }
 
     override fun onBindViewHolder(viewHolder: MyViewHolder, position: Int) {
-        viewHolder.textView.text = myData[position].myString
+        viewHolder.stringTextView.text = myData[position].myString
 //        viewHolder.deleteButton.setOnClickListener {
 //
 //        }
