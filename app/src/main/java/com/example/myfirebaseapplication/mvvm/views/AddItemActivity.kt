@@ -43,24 +43,30 @@ class AddItemActivity : AppCompatActivity() {
     }
 
     private fun saveItem() {
+        var inputErrors = 0
         val string = stringVariableEditText.text.toString()
         val intString = intVariableEditText.text.toString()
         var int = 0
         if (stringIsInteger(intString) == true) {
             int = intString.toInt()
+        } else {
+            inputErrors = 1
         }
         val boolean = booleanVariableCheckBox.isChecked
         val id = UUID.randomUUID().toString()
         val stringArr = ArrayList<String>()
         val intArr = ArrayList<Int>()
         val newItem = FirebaseDataClass(id, string, int, boolean, stringArr, intArr)
-        viewModel.addNewItem(newItem) {
-            if (it == true) {
-                Navigation().fromTo(this, ListActivity())
-                Log.d(ContentValues.TAG, "Add success")
-            } else {
-                Log.d(ContentValues.TAG, "Add failure")
+        if (inputErrors == 0) {
+            viewModel.addNewItem(newItem) {
+                if (it == true) {
+                    Navigation().fromTo(this, ListActivity())
+                } else {
+                    // Message about errors
+                }
             }
+        } else if (inputErrors == 1) {
+            // Error message that number is not integer
         }
     }
 
@@ -70,14 +76,6 @@ class AddItemActivity : AppCompatActivity() {
         if (intNull?.equals(null) == false) {
             isInteger = true
         }
-        Log.d(ContentValues.TAG, isInteger.toString())
-
-//        if (if (intNull == null) {
-//
-//            }
-//        ) { //toInt() <= 2147483647 && inputInteger.toInt() >= -2147483647) {
-//            isInteger = true
-//        }
         return isInteger
     }
 
