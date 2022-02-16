@@ -44,7 +44,11 @@ class AddItemActivity : AppCompatActivity() {
 
     private fun saveItem() {
         val string = stringVariableEditText.text.toString()
-        val int = intVariableEditText.text.toString().toInt()
+        val intString = intVariableEditText.text.toString()
+        var int = 0
+        if (stringIsInteger(intString) == true) {
+            int = intString.toInt()
+        }
         val boolean = booleanVariableCheckBox.isChecked
         val id = UUID.randomUUID().toString()
         val stringArr = ArrayList<String>()
@@ -58,6 +62,23 @@ class AddItemActivity : AppCompatActivity() {
                 Log.d(ContentValues.TAG, "Add failure")
             }
         }
+    }
+
+    private fun stringIsInteger(inputInteger: String): Boolean {
+        var isInteger = false
+        val intNull = inputInteger.toIntOrNull()
+        if (intNull?.equals(null) == false) {
+            isInteger = true
+        }
+        Log.d(ContentValues.TAG, isInteger.toString())
+
+//        if (if (intNull == null) {
+//
+//            }
+//        ) { //toInt() <= 2147483647 && inputInteger.toInt() >= -2147483647) {
+//            isInteger = true
+//        }
+        return isInteger
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
