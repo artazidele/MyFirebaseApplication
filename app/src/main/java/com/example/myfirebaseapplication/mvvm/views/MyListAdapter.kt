@@ -71,7 +71,6 @@ class MyListAdapter(private val myData: ArrayList<FirebaseDataClass>) :
                     }
                 }
             }
-            notifyItemChanged(position)
         }
     }
 
