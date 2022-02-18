@@ -1,12 +1,19 @@
 package com.example.myfirebaseapplication.mvvm.viewmodels
 
+import android.net.Uri
+import android.widget.ImageView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import coil.request.NullRequestData.toString
+import coil.size.OriginalSize.toString
+import com.bumptech.glide.Glide
 import com.example.myfirebaseapplication.mvvm.helpers.NetworkDataStatus
 import com.example.myfirebaseapplication.mvvm.models.FirebaseDataClass
 import com.example.myfirebaseapplication.mvvm.models.FirebaseDatabase
 import com.google.firebase.firestore.ktx.toObject
+import kotlin.Unit.toString
+import kotlin.coroutines.EmptyCoroutineContext.toString
 
 class MyViewModel : ViewModel() {
     private val _network_status = MutableLiveData<NetworkDataStatus>()
@@ -81,5 +88,33 @@ class MyViewModel : ViewModel() {
                 _network_status.value = NetworkDataStatus.ERROR
                 onResult(null)
             }
+    }
+
+    fun addOneImage(imageView: ImageView, title: String, onResult: (Boolean) -> Unit) {
+        _network_status.value = NetworkDataStatus.LOADING
+        FirebaseDatabase().addImage(imageView, title)
+            .addOnSuccessListener {
+                _network_status.value = NetworkDataStatus.DONE
+                onResult(true)
+            }
+            .addOnFailureListener {
+                _network_status.value = NetworkDataStatus.ERROR
+                onResult(false)
+            }
+    }
+
+    fun uploadOneImage(title: String, onResult: (Uri?) -> Unit) {
+        _network_status.value = NetworkDataStatus.LOADING
+        FirebaseDatabase().getImageReference(title)
+            .addOnSuccessListener { uri ->
+                _network_status.value = NetworkDataStatus.DONE
+                onResult(uri)
+            }
+            .addOnFailureListener {
+                _network_status.value = NetworkDataStatus.ERROR
+                onResult(null)
+            }
+
+
     }
 }

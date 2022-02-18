@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="half_margin">4dp</dimen>
+    <dimen name="full_margin">8dp</dimen>
+    <dimen name="double_margin">16dp</dimen>
+    <dimen name="classic_height">48dp</dimen>
+    <dimen name="classic_width">48dp</dimen>
+    <dimen name="text_size">16dp</dimen>
+    <dimen name="title_text_size">20dp</dimen>
+</resources>
